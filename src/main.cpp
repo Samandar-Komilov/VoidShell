@@ -3,33 +3,24 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <vector>
+#include <csignal>
 
 #define BUFFSIZE 1024
 
 using namespace std;
 
 
-vector<char*> parseInput(string input){
-    vector<char*> args;
-    char* token = strtok(&input[0], " ");
-    while (token != nullptr){
-        args.push_back(token);
-        token = strtok(nullptr, " ");
-    }
-    args.push_back(nullptr);
+// Signal handlers
+void sigint_handler(int sig); // CTRL+C handler
 
-    return args;
-}
+// Function prototypes
+vector<char*> parseInput(string input);
 
 
 int main(){
-    cout << "🎉 Welcome to VoidShell!\n" << endl;
+    signal(SIGINT, sigint_handler);
 
-    /*
-    - voidsh> interface
-    - command identification strtok(), argument parsing and exit checking
-    */
-    char commandbuff[BUFFSIZE];
+    cout << "🎉 Welcome to VoidShell!\n" << endl;
 
     while (true){
         string input;
@@ -68,4 +59,21 @@ int main(){
     }
 
     return EXIT_SUCCESS;
+}
+
+vector<char*> parseInput(string input){
+    vector<char*> args;
+    char* token = strtok(&input[0], " ");
+    while (token != nullptr){
+        args.push_back(token);
+        token = strtok(nullptr, " ");
+    }
+    args.push_back(nullptr);
+
+    return args;
+}
+
+void sigint_handler(int sig){
+    cout << "\n⛔️ Shell terminated using CTRL+C signal." << endl;
+    exit(EXIT_SUCCESS);
 }
