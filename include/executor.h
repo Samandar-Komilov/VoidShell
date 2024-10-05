@@ -6,6 +6,6 @@
 
 using namespace std;
 
-void execute_command(const vector<char*> args);
+void execute_single_command(vector<char*> args);
 
 #endif

@@ -28,7 +28,8 @@ int main(){
         }
 
         args = parseInput(input);
-        execute_command(args);
+        
+        execute_single_command(args);
 
         // Restart the job, until user enters `exit` or CTRL+C signal
     }
