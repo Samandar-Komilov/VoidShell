@@ -6,6 +6,7 @@
 
 using namespace std;
 
-void execute_command(const vector<char*> args);
+void execute_single_command(vector<char*> args);
+int redirect_io_if_exist(vector<char*> args);
 
 #endif
