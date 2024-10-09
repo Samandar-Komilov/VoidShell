@@ -17,7 +17,6 @@ void execute_single_command(vector<char*> args){
     for (int i=0; args[i] != nullptr; ++i){
         if (strcmp(args[i], ">") == 0){
             // Output redirection
-            cout << "Output redirection is working..." << endl;
             int fd = open(args[i+1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
             dup2(fd, STDOUT_FILENO);
             close(fd);
@@ -27,7 +26,6 @@ void execute_single_command(vector<char*> args){
             break;
         }
         else if (strcmp(args[i], "<") == 0){
-            cout << "Input redirection is working..." << endl;
             // Input redirection
             int fd = open(args[i+1], O_RDONLY);
             dup2(fd, STDIN_FILENO);
